@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL.DAO
 {
-    class DAOContact
+    public class DAOContact
     {
         private SqlConnection connection;
         const string TABLE_NAME = "Contact";

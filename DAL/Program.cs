@@ -9,7 +9,7 @@ namespace DAL
     {
         static void Main(string[] args)
         {
-            DAOContact DaoContact = new DAOContact();
+            DAOContact dao = new DAOContact();
             List<Contact> contacts = new List<Contact>();
             List<Contact> dbContacts = new List<Contact>();
 
@@ -25,10 +25,10 @@ namespace DAL
 
             // CREATE
             foreach (Contact contact in contacts)
-                DaoContact.Create(contact);
+                dao.Create(contact);
 
             // FIND ALL
-            foreach (Contact contact in DaoContact.FindAll())
+            foreach (Contact contact in dao.FindAll())
                 dbContacts.Add(contact);
 
 
@@ -43,19 +43,19 @@ namespace DAL
             contact1.Firstname = "Bob";
             contact1.Email = "bob.sauvage@example.com";
 
-            DaoContact.Update(contact1);
+            dao.Update(contact1);
 
             // FIND ONE BY ID
-            Contact contact3 = DaoContact.FindOneById(3);
+            Contact contact3 = dao.FindOneById(3);
 
             // UPDATE
             contact3.Phone = "+1 (514) 111-4444";
             dbContacts[2] = contact3;
 
-            DaoContact.Update(contact3);
+            dao.Update(contact3);
 
             // FIN ALL
-            dbContacts = DaoContact.FindAll();
+            dbContacts = dao.FindAll();
 
             // PRINT
             Console.WriteLine("=== DB AFTER UPDATE ===");
