@@ -13,8 +13,10 @@ namespace DAL.DAO
         public DAOContact()
         {
             this.connection = new SqlConnection(
-                connectionString: @"Data Source=BENOIT\SQLEXPRESS;Initial Catalog=tpcontact;
-                            Integrated Security=True;Connect Timeout=5;"
+                connectionString: @"Data Source=MESTA;
+                                    Initial Catalog=dbtpcontact;
+                                    Integrated Security=True;
+                                    Connect Timeout=5;"
             );
         }
 
