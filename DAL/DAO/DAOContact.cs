@@ -56,6 +56,20 @@ namespace DAL.DAO
             this.connection.Close();
         }
 
+        public void Remove(Contact contact)
+        {
+            this.connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM " + TABLE_NAME + " " +
+                "WHERE id = " + contact.Id +
+            ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            this.connection.Close();
+        }
+
         public Contact FindOneById(int contact_id)
         {
             this.connection.Open();

@@ -75,5 +75,23 @@ namespace Worker.Classes
 
             dao.Update(contact);
         }
+
+        public static void RemoveContact(Dictionary<string, string> c)
+        {
+            DAOContact dao = new DAOContact();
+
+            c.TryGetValue("id", out string id);
+            c.TryGetValue("firstname", out string firstname);
+            c.TryGetValue("lastname", out string lastname);
+            c.TryGetValue("email", out string email);
+            c.TryGetValue("phone", out string phone);
+
+            phone = phone == "" ? null : phone;
+            email = email == "" ? null : email;
+
+            Contact contact = new Contact(long.Parse(id), firstname, lastname, email, phone);
+
+            dao.Remove(contact);
+        }
     }
 }

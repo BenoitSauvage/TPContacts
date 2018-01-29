@@ -35,7 +35,7 @@
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Height="23" Width="95"/>
         </StackPanel>
         <Button x:Name="BtnContactValidate" Content="Valider" HorizontalAlignment="Left" Margin="183,43,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnContactValidate_Click"/>
-        <Button x:Name="BtnDeleteFormContact" Content="Supprimer" HorizontalAlignment="Left" Margin="263,43,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BtnDeleteFormContact" Content="Supprimer" HorizontalAlignment="Left" Margin="263,43,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnDeleteFormContact_Click"/>
         <StackPanel x:Name="FormContactErrorStack" HorizontalAlignment="Left" Height="81" Margin="10,68,0,0" Grid.Row="1" VerticalAlignment="Top" Width="497"/>
 
     </Grid>

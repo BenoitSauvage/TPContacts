@@ -53,13 +53,7 @@ namespace UI
 
         private void BtnContactValidate_Click(object sender, RoutedEventArgs e)
         {
-            Dictionary<string, string> contact = new Dictionary<string, string>();
-
-            contact.Add("id", this.input_id.Text);
-            contact.Add("firstname", this.input_firstname.Text);
-            contact.Add("lastname", this.input_lastname.Text);
-            contact.Add("email", this.input_email.Text);
-            contact.Add("phone", this.input_phone.Text);
+            Dictionary<string, string> contact = this.GenerateContact();
 
             List<string> errors = ContactWorker.ValidateContact(contact);
             this.FormContactErrorStack.Children.Clear();
@@ -123,6 +117,16 @@ namespace UI
             this.ShowList();
         }
 
+        private void BtnDeleteFormContact_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> contact = this.GenerateContact();
+
+            ContactWorker.RemoveContact(contact);
+
+            this.HideForm();
+            this.ShowList();
+        }
+
         private void HideForm()
         {
             this.BackToList.Visibility = Visibility.Hidden;
@@ -167,6 +171,19 @@ namespace UI
             // Populate list
             foreach (Contact contact in this.daoContact.FindAll())
                 this.Contacts_List.Items.Add(contact);
+        }
+
+        private Dictionary<string, string> GenerateContact()
+        {
+            Dictionary<string, string> contact = new Dictionary<string, string>();
+
+            contact.Add("id", this.input_id.Text);
+            contact.Add("firstname", this.input_firstname.Text);
+            contact.Add("lastname", this.input_lastname.Text);
+            contact.Add("email", this.input_email.Text);
+            contact.Add("phone", this.input_phone.Text);
+
+            return contact;
         }
     }
 }
