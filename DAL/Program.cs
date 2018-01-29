@@ -73,8 +73,16 @@ namespace DAL
             foreach (Contact contact in contact4)
                 contact.Print();
 
+            //SEARCH BY EMAIL
+            Console.WriteLine("=== TEST SEARCH BY EMAIL (\"Jam\") ===");
+            Console.WriteLine();
+            List<Contact> contact5 = dao.FindByEmail("Jam");
 
-            //REMOVE ALL 
+            foreach (Contact contact in contact5)
+                contact.Print();
+
+
+            //REMOVE ALL (Juste pour pas avoir une DB de 8 bornes qui se repette a chaque fois que l'on lance un test)
             foreach (Contact contact in dao.FindAll())
                 dao.Remove(contact);
 
