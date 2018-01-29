@@ -47,23 +47,26 @@ namespace UI
         {
             this.HideList();
             this.ShowForm();
+
+            this.BtnContactValidate.Content = "Ajouter";
         }
 
-        private void AddContactBtnValidate_Click(object sender, RoutedEventArgs e)
+        private void BtnContactValidate_Click(object sender, RoutedEventArgs e)
         {
             Dictionary<string, string> contact = new Dictionary<string, string>();
 
+            contact.Add("id", this.input_id.Text);
             contact.Add("firstname", this.input_firstname.Text);
             contact.Add("lastname", this.input_lastname.Text);
             contact.Add("email", this.input_email.Text);
             contact.Add("phone", this.input_phone.Text);
 
             List<string> errors = ContactWorker.ValidateContact(contact);
-            this.AddContactErrorStack.Children.Clear();
+            this.FormContactErrorStack.Children.Clear();
 
             if (errors.Count > 0)
             {
-                this.AddContactErrorStack.Visibility = Visibility.Visible;
+                this.FormContactErrorStack.Visibility = Visibility.Visible;
                 foreach(string error in errors)
                 {
                     TextBlock text = new TextBlock();
@@ -71,32 +74,77 @@ namespace UI
                     text.TextAlignment = TextAlignment.Center;
                     text.Foreground = Brushes.Red;
                     text.FontWeight = FontWeights.Bold;
-                    this.AddContactErrorStack.Children.Add(text);
+                    this.FormContactErrorStack.Children.Add(text);
                 }
             }
             else
             {
-                ContactWorker.AddContact(contact);
+                if (this.input_id.Text == "")
+                {
+                    ContactWorker.AddContact(contact);
+                }
+                else
+                {
+                    ContactWorker.UpdateContact(contact);
+                }
+               
                 this.HideForm();
                 this.ShowList();
             }           
         }
 
+        private void Contacts_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Contact contact = (Contact)e.AddedItems[0];
+
+                this.HideList();
+                this.ShowForm();
+                
+                this.input_id.Text = contact.Id.ToString();
+                this.input_firstname.Text = contact.Firstname;
+                this.input_lastname.Text = contact.Lastname;
+                this.input_email.Text = contact.Email == "NULL" ? "" : contact.Email;
+                this.input_phone.Text = contact.Phone == "NULL" ? "" : contact.Phone;
+
+                this.BtnContactValidate.Content = "Modifier";
+            }
+            catch (Exception exception)
+            {
+                // DO NOTHING
+            }
+
+        }
+
+        private void BackToList_Click(object sender, RoutedEventArgs e)
+        {
+            this.HideForm();
+            this.ShowList();
+        }
+
         private void HideForm()
         {
-            this.AddContactTextStack.Visibility = Visibility.Hidden;
-            this.AddContactInputStack.Visibility = Visibility.Hidden;
-            this.AddContactBtnValidate.Visibility = Visibility.Hidden;
-            this.AddContactErrorStack.Visibility = Visibility.Hidden;
+            this.BackToList.Visibility = Visibility.Hidden;
+
+            this.FormContactTextStack.Visibility = Visibility.Hidden;
+            this.FormContactInputStack.Visibility = Visibility.Hidden;
+            this.BtnContactValidate.Visibility = Visibility.Hidden;
+            this.BtnDeleteFormContact.Visibility = Visibility.Hidden;
+            this.FormContactErrorStack.Visibility = Visibility.Hidden;
         }
 
         private void ShowForm()
         {
-            this.AddContactTextStack.Visibility = Visibility.Visible;
-            this.AddContactInputStack.Visibility = Visibility.Visible;
-            this.AddContactBtnValidate.Visibility = Visibility.Visible;
-            this.AddContactErrorStack.Visibility = Visibility.Visible;
+            this.BackToList.Visibility = Visibility.Visible;
 
+            this.FormContactTextStack.Visibility = Visibility.Visible;
+            this.FormContactInputStack.Visibility = Visibility.Visible;
+            this.BtnContactValidate.Visibility = Visibility.Visible;
+            this.BtnDeleteFormContact.Visibility = Visibility.Visible;
+            this.FormContactErrorStack.Visibility = Visibility.Visible;
+
+            this.input_id.Clear();
             this.input_firstname.Clear();
             this.input_lastname.Clear();
             this.input_email.Clear();
@@ -106,13 +154,13 @@ namespace UI
         private void HideList()
         {
             this.Contacts_List.Visibility = Visibility.Hidden;
-            this.BtnAddContact.Visibility = Visibility.Hidden;
+            this.BtnDisplayFormContact.Visibility = Visibility.Hidden;
         }
 
         private void ShowList()
         {
             this.Contacts_List.Visibility = Visibility.Visible;
-            this.BtnAddContact.Visibility = Visibility.Visible;
+            this.BtnDisplayFormContact.Visibility = Visibility.Visible;
 
             this.Contacts_List.Items.Clear();
 
