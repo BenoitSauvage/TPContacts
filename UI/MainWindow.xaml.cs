@@ -16,7 +16,11 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        const string FIRSTNAME = "Firstname";
+        const string LASTNAME = "Lastname";
+
         DAOContact daoContact;
+        string sort = null;
 
         public MainWindow()
         {
@@ -31,13 +35,13 @@ namespace UI
 
             gridView.Columns.Add(new GridViewColumn
             {
-                Header = "Firstname",
-                DisplayMemberBinding = new Binding("Firstname")
+                Header = FIRSTNAME,
+                DisplayMemberBinding = new Binding(FIRSTNAME)
             });
             gridView.Columns.Add(new GridViewColumn
             {
-                Header = "Lastname",
-                DisplayMemberBinding = new Binding("Lastname")
+                Header = LASTNAME,
+                DisplayMemberBinding = new Binding(LASTNAME)
             });
 
             this.ShowList();
@@ -127,6 +131,17 @@ namespace UI
             this.ShowList();
         }
 
+        private void GridViewSort(object sender, RoutedEventArgs e)
+        {
+            var header = e.OriginalSource as GridViewColumnHeader;
+
+            this.Contacts_List.Items.Clear();
+
+            // Populate list
+            foreach (Contact contact in ContactWorker.Sort(header.Content.ToString()))
+                this.Contacts_List.Items.Add(contact);
+        }
+
         private void HideForm()
         {
             this.BackToList.Visibility = Visibility.Hidden;
@@ -169,7 +184,7 @@ namespace UI
             this.Contacts_List.Items.Clear();
 
             // Populate list
-            foreach (Contact contact in this.daoContact.FindAll())
+            foreach (Contact contact in ContactWorker.GetAll())
                 this.Contacts_List.Items.Add(contact);
         }
 

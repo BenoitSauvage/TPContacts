@@ -11,7 +11,7 @@
             <RowDefinition Height="160*"/>
             <RowDefinition Height="159*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="183,45,0,0" VerticalAlignment="Top" Width="185" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged">
+        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="183,45,0,0" VerticalAlignment="Top" Width="185" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

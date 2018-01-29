@@ -9,6 +9,17 @@ namespace Worker.Classes
 {
     public class ContactWorker
     {
+        const string FIRSTNAME = "Firstname";
+        const string LASTNAME = "Lastname";
+
+        static List<Contact> contacts = new List<Contact>();
+
+        public static List<Contact> GetAll()
+        {
+            contacts = new DAOContact().FindAll();
+            return contacts;
+        }
+
         public static List<string> ValidateContact(Dictionary<string, string> contact)
         {
             List<string> errors = new List<string>();
@@ -92,6 +103,17 @@ namespace Worker.Classes
             Contact contact = new Contact(long.Parse(id), firstname, lastname, email, phone);
 
             dao.Remove(contact);
+        }
+
+        public static List<Contact> Sort(string column)
+        {
+            if (column == FIRSTNAME)
+                contacts.Sort((a, b) => string.Compare(a.Firstname, b.Firstname));
+
+            if (column == LASTNAME)
+                contacts.Sort((a, b) => string.Compare(a.Lastname, b.Lastname));
+
+            return contacts;
         }
     }
 }
