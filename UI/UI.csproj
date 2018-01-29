@@ -102,6 +102,10 @@
       <Project>{0a9933f5-70c5-4fce-98c5-b0d21276f7df}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Worker\Worker.csproj">
+      <Project>{93da3e3f-f392-47fe-93a9-e505b52acc54}</Project>
+      <Name>Worker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

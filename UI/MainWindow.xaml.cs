@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Collections.Generic;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using DAL.DAO;
 using Models.Classes;
+using Worker.Classes;
 
 namespace UI
 {
@@ -23,20 +16,19 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        DAOContact daoContact;
+
         public MainWindow()
         {
             InitializeComponent();
-            DAOContact daoContact = new DAOContact();
+            this.daoContact = new DAOContact();
+
+            this.HideForm();
 
             // Add columns
             var gridView = new GridView();
             this.Contacts_List.View = gridView;
 
-            gridView.Columns.Add(new GridViewColumn
-            {
-                Header = "Id",
-                DisplayMemberBinding = new Binding("Id")
-            });
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = "Firstname",
@@ -47,19 +39,85 @@ namespace UI
                 Header = "Lastname",
                 DisplayMemberBinding = new Binding("Lastname")
             });
-            gridView.Columns.Add(new GridViewColumn
+
+            this.ShowList();
+        }
+
+        private void BtnAddContact_Click(object sender, RoutedEventArgs e)
+        {
+            this.HideList();
+            this.ShowForm();
+        }
+
+        private void AddContactBtnValidate_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> contact = new Dictionary<string, string>();
+
+            contact.Add("firstname", this.input_firstname.Text);
+            contact.Add("lastname", this.input_lastname.Text);
+            contact.Add("email", this.input_email.Text);
+            contact.Add("phone", this.input_phone.Text);
+
+            List<string> errors = ContactWorker.ValidateContact(contact);
+            this.AddContactErrorStack.Children.Clear();
+
+            if (errors.Count > 0)
             {
-                Header = "Email",
-                DisplayMemberBinding = new Binding("Email")
-            });
-            gridView.Columns.Add(new GridViewColumn
+                this.AddContactErrorStack.Visibility = Visibility.Visible;
+                foreach(string error in errors)
+                {
+                    TextBlock text = new TextBlock();
+                    text.Text = error;
+                    text.TextAlignment = TextAlignment.Center;
+                    text.Foreground = Brushes.Red;
+                    text.FontWeight = FontWeights.Bold;
+                    this.AddContactErrorStack.Children.Add(text);
+                }
+            }
+            else
             {
-                Header = "Phone",
-                DisplayMemberBinding = new Binding("Phone")
-            });
+                ContactWorker.AddContact(contact);
+                this.HideForm();
+                this.ShowList();
+            }           
+        }
+
+        private void HideForm()
+        {
+            this.AddContactTextStack.Visibility = Visibility.Hidden;
+            this.AddContactInputStack.Visibility = Visibility.Hidden;
+            this.AddContactBtnValidate.Visibility = Visibility.Hidden;
+            this.AddContactErrorStack.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowForm()
+        {
+            this.AddContactTextStack.Visibility = Visibility.Visible;
+            this.AddContactInputStack.Visibility = Visibility.Visible;
+            this.AddContactBtnValidate.Visibility = Visibility.Visible;
+            this.AddContactErrorStack.Visibility = Visibility.Visible;
+
+            this.input_firstname.Clear();
+            this.input_lastname.Clear();
+            this.input_email.Clear();
+            this.input_phone.Clear();
+        }
+
+        private void HideList()
+        {
+            this.Contacts_List.Visibility = Visibility.Hidden;
+            this.BtnAddContact.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowList()
+        {
+            this.Contacts_List.Visibility = Visibility.Visible;
+            this.BtnAddContact.Visibility = Visibility.Visible;
+
+            this.Contacts_List.Items.Clear();
 
             // Populate list
-            foreach (Contact contact in daoContact.FindAll())
+            foreach (Contact contact in this.daoContact.FindAll())
                 this.Contacts_List.Items.Add(contact);
         }
     }

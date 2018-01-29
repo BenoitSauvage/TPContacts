@@ -11,13 +11,27 @@
             <RowDefinition Height="160*"/>
             <RowDefinition Height="159*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="497" Grid.RowSpan="2">
+        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="183,45,0,0" VerticalAlignment="Top" Width="185" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-
+        <Button x:Name="BtnAddContact" Content="Nouveau" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnAddContact_Click" RenderTransformOrigin="0.288,0.264"/>
+        <StackPanel x:Name="AddContactInputStack" Margin="254,88,57,116" Orientation="Vertical" Grid.RowSpan="2">
+            <TextBox x:Name="input_firstname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+            <TextBox x:Name="input_lastname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+            <TextBox x:Name="input_email" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+            <TextBox x:Name="input_phone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        </StackPanel>
+        <StackPanel x:Name="AddContactTextStack" Margin="148,89,274,116" Orientation="Vertical" Grid.RowSpan="2">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Height="23" Width="95"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Height="23" Width="95"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Height="23" Width="95"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Height="23" Width="95"/>
+        </StackPanel>
+        <Button x:Name="AddContactBtnValidate" Content="Valider" HorizontalAlignment="Left" Margin="212,43,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="AddContactBtnValidate_Click"/>
+        <StackPanel x:Name="AddContactErrorStack" HorizontalAlignment="Left" Height="81" Margin="10,68,0,0" Grid.Row="1" VerticalAlignment="Top" Width="497"/>
     </Grid>
 </Window>
