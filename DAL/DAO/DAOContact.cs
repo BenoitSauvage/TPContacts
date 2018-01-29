@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL.DAO
 {
-    class DAOContact
+    public class DAOContact
     {
         private SqlConnection connection;
         const string TABLE_NAME = "Contact";
@@ -45,6 +45,20 @@ namespace DAL.DAO
                 "lastname = '" + contact.Lastname + "', " +
                 "email = " + email + ", " +
                 "phone = " + phone + " " +
+                "WHERE id = " + contact.Id +
+            ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            this.connection.Close();
+        }
+
+        public void Remove(Contact contact)
+        {
+            this.connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM " + TABLE_NAME + " " +
                 "WHERE id = " + contact.Id +
             ";";
 
