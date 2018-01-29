@@ -4,6 +4,7 @@ DAL/bin/Debug/
 DAL/bin/Release/
 DAL/obj/Debug/
 DAL/obj/Release/
+DAL/DAO/ConnectData.cs
 Models/bin/Debug/
 Models/bin/Release/
 Models/obj/Debug/
