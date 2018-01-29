@@ -1,5 +1,6 @@
 .vs/
 DAL/bin/Debug/
 DAL/obj/Debug/
+DAL/DAO/ConnectData.cs
 Models/bin/Debug/
 Models/obj/Debug/
