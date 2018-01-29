@@ -15,6 +15,7 @@ namespace DAL
 
             contacts.Add(new Contact("Benoit", "Sauvage", "benoit.sauvage@example.com", "+1 (514) 111-2222"));
             contacts.Add(new Contact("Bob", "Durand", null, "+1 (514) 111-3333"));
+            contacts.Add(new Contact("James", "Bob", "JamyBob@exemp.com", "+1 (254) 220-2659"));
             contacts.Add(new Contact("Pierre", "Martin", "pierre.martin@example.com"));
 
             // PRINT
@@ -46,7 +47,7 @@ namespace DAL
             dao.Update(contact1);
 
             // FIND ONE BY ID
-            Contact contact3 = dao.FindOneById(3);
+            Contact contact3 = dao.FindOneById(dbContacts[2].Id);
 
             // UPDATE
             contact3.Phone = "+1 (514) 111-4444";
@@ -62,6 +63,20 @@ namespace DAL
             Console.WriteLine();
             foreach (Contact contact in dbContacts)
                 contact.Print();
+
+
+            //SEARCH BY NAME
+            Console.WriteLine("=== TEST SEARCH BY NAME (\"Bob\") ===");
+            Console.WriteLine();
+            List<Contact> contact4 = dao.FindByName("Bob");
+
+            foreach (Contact contact in contact4)
+                contact.Print();
+
+
+            //REMOVE ALL 
+            foreach (Contact contact in dao.FindAll())
+                dao.Remove(contact);
 
             Console.Read();
         }
