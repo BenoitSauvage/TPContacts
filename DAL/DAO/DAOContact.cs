@@ -190,5 +190,33 @@ namespace DAL.DAO
             return contacts;
         }
 
+
+        public List<Contact> FindByPhone(string phone) {
+            List<Contact> contacts = new List<Contact>();
+            this.connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM " + TABLE_NAME + " WHERE phone LIKE '%" + phone + "%';";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+
+            while (reader.Read()) {
+                long id = reader.GetInt64(0);
+                string firstname = reader.GetString(1);
+                string lastname = reader.GetString(2);
+                string mail = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string cel = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contacts.Add(new Contact(id, firstname, lastname, mail, cel));
+            }
+
+            this.connection.Close();
+
+
+            return contacts;
+        }
+
+
     }
 }

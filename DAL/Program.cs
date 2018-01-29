@@ -81,6 +81,13 @@ namespace DAL
             foreach (Contact contact in contact5)
                 contact.Print();
 
+            //SEARCH BY PHONE
+            Console.WriteLine("=== TEST SEARCH BY PHONE (\"22\") ===");
+            Console.WriteLine();
+            List<Contact> contact6 = dao.FindByPhone("22");
+
+            foreach (Contact contact in contact6)
+                contact.Print();
 
             //REMOVE ALL (Juste pour pas avoir une DB de 8 bornes qui se repette a chaque fois que l'on lance un test)
             foreach (Contact contact in dao.FindAll())
