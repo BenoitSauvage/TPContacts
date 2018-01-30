@@ -15,15 +15,15 @@
             <RowDefinition Height="160*"/>
             <RowDefinition Height="159*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="183,45,0,0" VerticalAlignment="Top" Width="284" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort">
+        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="111,43,0,0" VerticalAlignment="Top" Width="396" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="BtnDisplayFormContact" Content="Nouveau" HorizontalAlignment="Left" Margin="392,10,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnAddContact_Click" RenderTransformOrigin="0.288,0.264"/>
-        <Button x:Name="BackToList" Content="Retour" HorizontalAlignment="Left" Margin="392,10,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BackToList_Click"/>
+        <Button x:Name="BtnDisplayFormContact" Content="Nouveau" HorizontalAlignment="Left" Margin="432,10,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnAddContact_Click" RenderTransformOrigin="0.288,0.264"/>
+        <Button x:Name="BackToList" Content="Retour" HorizontalAlignment="Left" Margin="432,10,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BackToList_Click"/>
 
         <StackPanel x:Name="FormContactInputStack" Margin="272,87,-7,117" Orientation="Vertical" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <TextBox x:Name="input_firstname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
@@ -42,8 +42,9 @@
         <Button x:Name="BtnDeleteFormContact" Content="Supprimer" HorizontalAlignment="Left" Margin="263,43,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnDeleteFormContact_Click" Height="20"/>
         <StackPanel x:Name="FormContactErrorStack" HorizontalAlignment="Left" Height="81" Margin="10,68,0,0" Grid.Row="1" VerticalAlignment="Top" Width="497"/>
 
-        <TextBox x:Name="input_search" HorizontalAlignment="Left" Height="18" Margin="253,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="134" TextChanged="TextBox_TextChanged"/>
-        <TextBlock x:Name="search_text" HorizontalAlignment="Left" Margin="183,17,0,0" TextWrapping="Wrap" Text="Rechercher" VerticalAlignment="Top"/>
+        <TextBox x:Name="input_search" HorizontalAlignment="Left" Height="18" Margin="173,17,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="140" TextChanged="TextBox_TextChanged"/>
+        <TextBlock x:Name="search_text" HorizontalAlignment="Left" Margin="111,17,0,0" TextWrapping="Wrap" Text="Rechercher" VerticalAlignment="Top"/>
+        <ComboBox x:Name="search_type" HorizontalAlignment="Left" Margin="318,13,0,0" VerticalAlignment="Top" Width="109" Height="25"/>
 
     </Grid>
 </Window>
