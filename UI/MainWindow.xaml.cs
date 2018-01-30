@@ -18,9 +18,10 @@ namespace UI
     {
         const string FIRSTNAME = "Firstname";
         const string LASTNAME = "Lastname";
+        const string EMAIL = "Email";
+        const string PHONE = "Phone";
 
         DAOContact daoContact;
-        string sort = null;
 
         public MainWindow()
         {
@@ -43,6 +44,23 @@ namespace UI
                 Header = LASTNAME,
                 DisplayMemberBinding = new Binding(LASTNAME)
             });
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = EMAIL,
+                DisplayMemberBinding = new Binding(EMAIL)
+            });
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = PHONE,
+                DisplayMemberBinding = new Binding(PHONE)
+            });
+
+            this.search_type.Items.Insert(0, FIRSTNAME);
+            this.search_type.Items.Insert(1, LASTNAME);
+            this.search_type.Items.Insert(2, EMAIL);
+            this.search_type.Items.Insert(3, PHONE);
+
+            this.search_type.SelectedIndex = 0;
 
             this.ShowList();
         }
@@ -142,6 +160,22 @@ namespace UI
                 this.Contacts_List.Items.Add(contact);
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.Contacts_List.Items.Clear();
+
+            if (this.input_search.Text != "")
+            {               
+                foreach (Contact contact in ContactWorker.Filter(this.search_type.SelectedIndex, this.input_search.Text))
+                    this.Contacts_List.Items.Add(contact);
+            }
+            else
+            {
+                foreach (Contact contact in ContactWorker.GetAll())
+                    this.Contacts_List.Items.Add(contact);
+            }
+        }
+
         private void HideForm()
         {
             this.BackToList.Visibility = Visibility.Hidden;
@@ -174,13 +208,20 @@ namespace UI
         {
             this.Contacts_List.Visibility = Visibility.Hidden;
             this.BtnDisplayFormContact.Visibility = Visibility.Hidden;
+            this.input_search.Visibility = Visibility.Hidden;
+            this.search_text.Visibility = Visibility.Hidden;
+            this.search_type.Visibility = Visibility.Hidden;
         }
 
         private void ShowList()
         {
             this.Contacts_List.Visibility = Visibility.Visible;
             this.BtnDisplayFormContact.Visibility = Visibility.Visible;
+            this.input_search.Visibility = Visibility.Visible;
+            this.search_text.Visibility = Visibility.Visible;
+            this.search_type.Visibility = Visibility.Visible;
 
+            this.input_search.Clear();
             this.Contacts_List.Items.Clear();
 
             // Populate list

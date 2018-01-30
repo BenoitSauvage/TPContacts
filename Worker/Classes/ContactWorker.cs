@@ -12,6 +12,11 @@ namespace Worker.Classes
         const string FIRSTNAME = "Firstname";
         const string LASTNAME = "Lastname";
 
+        const int INDEX_FIRSTNAME = 0;
+        const int INDEX_LASTNAME = 1;
+        const int INDEX_EMAIL = 2;
+        const int INDEX_PHONE = 3;
+
         static List<Contact> contacts = new List<Contact>();
 
         public static List<Contact> GetAll()
@@ -112,6 +117,25 @@ namespace Worker.Classes
 
             if (column == LASTNAME)
                 contacts.Sort((a, b) => string.Compare(a.Lastname, b.Lastname));
+
+            return contacts;
+        }
+
+        public static List<Contact> Filter(int selectedIndex, string needle)
+        {
+            switch (selectedIndex)
+            {
+                case INDEX_FIRSTNAME:
+                case INDEX_LASTNAME:
+                    contacts = new DAOContact().FindByName(needle);
+                    break;
+                case INDEX_EMAIL:
+                    contacts = new DAOContact().FindByEmail(needle);
+                    break;
+                case INDEX_PHONE:
+                    contacts = new DAOContact().FindByPhone(needle);
+                    break;
+            }
 
             return contacts;
         }

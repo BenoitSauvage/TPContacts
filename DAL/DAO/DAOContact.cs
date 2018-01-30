@@ -155,7 +155,8 @@ namespace DAL.DAO {
             return contacts;
         }
 
-        public List<Contact> FindByName(string name) {
+        public List<Contact> FindByName(string name)
+        {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -165,7 +166,8 @@ namespace DAL.DAO {
             SqlDataReader reader = command.ExecuteReader();
 
 
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -181,7 +183,8 @@ namespace DAL.DAO {
             return contacts;
         }
 
-        public List<Contact> FindByEmail(string email) {
+        public List<Contact> FindByEmail(string email)
+        {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -191,7 +194,8 @@ namespace DAL.DAO {
             SqlDataReader reader = command.ExecuteReader();
 
 
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -208,7 +212,8 @@ namespace DAL.DAO {
         }
 
 
-        public List<Contact> FindByPhone(string phone) {
+        public List<Contact> FindByPhone(string phone)
+        {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -218,7 +223,8 @@ namespace DAL.DAO {
             SqlDataReader reader = command.ExecuteReader();
 
 
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -234,6 +240,7 @@ namespace DAL.DAO {
             return contacts;
         }
 
-
     }
 }
+
+
