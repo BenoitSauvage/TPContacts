@@ -115,5 +115,12 @@ namespace Worker.Classes
 
             return contacts;
         }
+
+        public static List<Contact> Filter(string needle)
+        {
+            contacts = new DAOContact().Filter(needle);
+
+            return contacts;
+        }
     }
 }

@@ -118,5 +118,33 @@ namespace DAL.DAO
 
             return contacts;
         }
+
+        public List<Contact> Filter(string needle)
+        {
+            this.connection.Open();
+            List<Contact> contacts = new List<Contact>();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM " + TABLE_NAME + " " +
+                "WHERE Firstname LIKE '%" + needle + "%' OR Lastname LIKE '%" + needle + "%'" +
+            ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                long id = reader.GetInt64(0);
+                string firstname = reader.GetString(1);
+                string lastname = reader.GetString(2);
+                string email = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string phone = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contacts.Add(new Contact(id, firstname, lastname, email, phone));
+            }
+
+            this.connection.Close();
+
+            return contacts;
+        }
     }
 }

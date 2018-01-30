@@ -142,6 +142,21 @@ namespace UI
                 this.Contacts_List.Items.Add(contact);
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.input_search.Text == "")
+                this.ShowList();
+
+            else
+            {
+                this.Contacts_List.Items.Clear();
+
+                // Populate list
+                foreach (Contact contact in ContactWorker.Filter(this.input_search.Text))
+                    this.Contacts_List.Items.Add(contact);
+            }
+        }
+
         private void HideForm()
         {
             this.BackToList.Visibility = Visibility.Hidden;
@@ -174,13 +189,18 @@ namespace UI
         {
             this.Contacts_List.Visibility = Visibility.Hidden;
             this.BtnDisplayFormContact.Visibility = Visibility.Hidden;
+            this.input_search.Visibility = Visibility.Hidden;
+            this.search_text.Visibility = Visibility.Hidden;
         }
 
         private void ShowList()
         {
             this.Contacts_List.Visibility = Visibility.Visible;
             this.BtnDisplayFormContact.Visibility = Visibility.Visible;
+            this.input_search.Visibility = Visibility.Visible;
+            this.search_text.Visibility = Visibility.Visible;
 
+            this.input_search.Clear();
             this.Contacts_List.Items.Clear();
 
             // Populate list
