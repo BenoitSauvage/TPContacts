@@ -104,7 +104,7 @@ namespace DAL.DAO {
             return contact;
         }
 
-        public Contact FindById(long[] contact_id) {
+        public Contact FindByIds(long[] contact_id) {
             Contact contact = null;
 
             foreach (long id in contact_id) {

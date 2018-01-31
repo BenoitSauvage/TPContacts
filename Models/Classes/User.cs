@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Models.Classes {
-    class User {
+    public class User {
 
         public static long? current_user_id = null;
 
@@ -13,12 +13,19 @@ namespace Models.Classes {
         public string   Login     { get; private set; }
         public int      Password  { get; private set; }
 
-        public long?    Contact_Id       { get; private set; }
+        public long?    Contact_Id   { get; private set; }
         public long[]   Contacts_Ids { get; private set; }
 
         public User(string login, string password) {
             this.Login      = login;
             this.Password   = Encrypt(password);
+        }
+
+        public User(long id, string login, int password, long contact_id) {
+            Id = id;
+            Login = login;
+            Password = password;
+            Contact_Id = contact_id;
         }
 
         private int Encrypt(string password) {
