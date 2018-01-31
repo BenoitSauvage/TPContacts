@@ -7,25 +7,41 @@ using System.Threading.Tasks;
 namespace Models.Classes {
     class User {
 
-        public static bool IsConnect        = false;
         public static long? current_user_id = null;
 
         public long?    Id        { get; private set; }
         public string   Login     { get; private set; }
         public int      Password  { get; private set; }
-        public string   Email     { get; private set; }
 
-        public long[] ContactId { get; private set; }
+        public long?    Contact_Id       { get; private set; }
+        public long[]   Contacts_Ids { get; private set; }
 
-        public User(string login, string password, string email) {
+        public User(string login, string password) {
             this.Login      = login;
             this.Password   = Encrypt(password);
-            this.Email      = email;
         }
 
         private int Encrypt(string password) {
             return password.GetHashCode();
         }
+
+        private bool CheckPassword(string password) {
+            return Encrypt(password) == Password;
+        }
+
+        public void Connect(string password) {
+            if (CheckPassword(password)) {
+                current_user_id = Id;
+            } else { 
+                // TO DO
+                // THROW EXCEPTIONS
+                }
+        }
+
+        public void Disconnect() {
+            current_user_id = null;
+        }
+
 
 
     }

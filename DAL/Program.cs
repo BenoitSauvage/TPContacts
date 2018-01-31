@@ -7,7 +7,44 @@ namespace DAL
 {
     class Program
     {
-        static void Main(string[] args)
+
+        static void Main(string[] args) {
+
+            //TestContactQuerys();
+
+            AddRandomContacts();
+
+        }
+
+
+        public static void AddRandomContacts() {
+            DAOContact dao = new DAOContact();
+            List<Contact> contacts = new List<Contact>();
+            List<Contact> dbContacts = new List<Contact>();
+
+            contacts.Add(new Contact("Benoit", "Sauvage", "benoit.sauvage@example.com", "+1 (514) 111-2222"));
+            contacts.Add(new Contact("Bob", "Durand", null, "+1 (514) 111-3333"));
+            contacts.Add(new Contact("James", "Bob", "JamyBob@exemp.com", "+1 (254) 220-2659"));
+            contacts.Add(new Contact("Pierre", "Martin", "pierre.martin@example.com"));
+
+
+            // CREATE
+            foreach (Contact contact in contacts)
+                dao.Create(contact);
+
+            // FIND ALL
+            foreach (Contact contact in dao.FindAll())
+                dbContacts.Add(contact);
+
+            // PRINT
+            Console.WriteLine("=== ACTUAL DB ===");
+            Console.WriteLine();
+            foreach (Contact contact in dbContacts)
+                contact.Print();
+
+        }
+
+        public static void TestContactQuerys()
         {
             DAOContact dao = new DAOContact();
             List<Contact> contacts = new List<Contact>();

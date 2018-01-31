@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\create_table_contact.sql" />
+    <Content Include="scripts\create_table_user_and_contact_user.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
