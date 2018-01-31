@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -121,23 +122,16 @@ namespace Worker.Classes
             return contacts;
         }
 
-        public static List<Contact> Filter(int selectedIndex, string needle)
+        public static List<Contact> Search(Dictionary<int, string> search)
         {
-            switch (selectedIndex)
-            {
-                case INDEX_FIRSTNAME:
-                case INDEX_LASTNAME:
-                    contacts = new DAOContact().FindByName(needle);
-                    break;
-                case INDEX_EMAIL:
-                    contacts = new DAOContact().FindByEmail(needle);
-                    break;
-                case INDEX_PHONE:
-                    contacts = new DAOContact().FindByPhone(needle);
-                    break;
-            }
+            DAOContact dao = new DAOContact();
 
-            return contacts;
+            search.TryGetValue(INDEX_FIRSTNAME, out string firstname);
+            search.TryGetValue(INDEX_LASTNAME, out string lastname);
+            search.TryGetValue(INDEX_EMAIL, out string email);
+            search.TryGetValue(INDEX_PHONE, out string phone);
+
+            return dao.FindByMultiCriteria(firstname, lastname, email, phone);
         }
     }
 }

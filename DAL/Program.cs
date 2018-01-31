@@ -10,6 +10,8 @@ namespace DAL
         static void Main(string[] args)
         {
             DAOContact dao = new DAOContact();
+
+
             List<Contact> contacts = new List<Contact>();
             List<Contact> dbContacts = new List<Contact>();
 
@@ -68,7 +70,7 @@ namespace DAL
             //SEARCH BY NAME
             Console.WriteLine("=== TEST SEARCH BY NAME (\"Bob\") ===");
             Console.WriteLine();
-            List<Contact> contact4 = dao.FindByName("Bob");
+            List<Contact> contact4 = dao.FindByFirstname("Bob");
 
             foreach (Contact contact in contact4)
                 contact.Print();
