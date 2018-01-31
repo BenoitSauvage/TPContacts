@@ -55,13 +55,6 @@ namespace UI
                 DisplayMemberBinding = new Binding(PHONE)
             });
 
-            this.search_type.Items.Insert(0, FIRSTNAME);
-            this.search_type.Items.Insert(1, LASTNAME);
-            this.search_type.Items.Insert(2, EMAIL);
-            this.search_type.Items.Insert(3, PHONE);
-
-            this.search_type.SelectedIndex = 0;
-
             this.ShowList();
         }
 
@@ -160,20 +153,20 @@ namespace UI
                 this.Contacts_List.Items.Add(contact);
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.Contacts_List.Items.Clear();
 
-            if (this.input_search.Text != "")
-            {               
-                foreach (Contact contact in ContactWorker.Filter(this.search_type.SelectedIndex, this.input_search.Text))
-                    this.Contacts_List.Items.Add(contact);
-            }
-            else
+            Dictionary<int, string> search = new Dictionary<int, string>
             {
-                foreach (Contact contact in ContactWorker.GetAll())
-                    this.Contacts_List.Items.Add(contact);
-            }
+                { 0, this.search_firstname.Text },
+                { 1, this.search_lastname.Text },
+                { 2, this.search_email.Text },
+                { 3, this.search_phone.Text }
+            };
+
+            foreach (Contact contact in ContactWorker.Search(search))
+                this.Contacts_List.Items.Add(contact);
         }
 
         private void HideForm()
@@ -208,20 +201,20 @@ namespace UI
         {
             this.Contacts_List.Visibility = Visibility.Hidden;
             this.BtnDisplayFormContact.Visibility = Visibility.Hidden;
-            this.input_search.Visibility = Visibility.Hidden;
-            this.search_text.Visibility = Visibility.Hidden;
-            this.search_type.Visibility = Visibility.Hidden;
+            this.Search_Bar.Visibility = Visibility.Hidden;
         }
 
         private void ShowList()
         {
             this.Contacts_List.Visibility = Visibility.Visible;
             this.BtnDisplayFormContact.Visibility = Visibility.Visible;
-            this.input_search.Visibility = Visibility.Visible;
-            this.search_text.Visibility = Visibility.Visible;
-            this.search_type.Visibility = Visibility.Visible;
+            this.Search_Bar.Visibility = Visibility.Visible;
 
-            this.input_search.Clear();
+            this.search_firstname.Clear();
+            this.search_lastname.Clear();
+            this.search_email.Clear();
+            this.search_phone.Clear();
+
             this.Contacts_List.Items.Clear();
 
             // Populate list
@@ -231,13 +224,14 @@ namespace UI
 
         private Dictionary<string, string> GenerateContact()
         {
-            Dictionary<string, string> contact = new Dictionary<string, string>();
-
-            contact.Add("id", this.input_id.Text);
-            contact.Add("firstname", this.input_firstname.Text);
-            contact.Add("lastname", this.input_lastname.Text);
-            contact.Add("email", this.input_email.Text);
-            contact.Add("phone", this.input_phone.Text);
+            Dictionary<string, string> contact = new Dictionary<string, string>
+            {
+                { "id", this.input_id.Text },
+                { "firstname", this.input_firstname.Text },
+                { "lastname", this.input_lastname.Text },
+                { "email", this.input_email.Text },
+                { "phone", this.input_phone.Text }
+            };
 
             return contact;
         }
