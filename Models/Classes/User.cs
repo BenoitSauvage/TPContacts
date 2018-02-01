@@ -39,8 +39,16 @@ namespace Models.Classes {
         public void AddContact(long contact_id) {
             Contacts_Ids.Add(contact_id);
         }
-        
 
+        public void Print() {
+            Console.WriteLine();
+            Console.WriteLine("Mon Login : {0}", this.Login);
+            Console.WriteLine("Id : {0}", this.Id);
+            Console.WriteLine("encrypted password : {0}", this.Password);
+
+
+
+        }
 
         public byte Connect(string login, string password) {
             //Code d'érreurs

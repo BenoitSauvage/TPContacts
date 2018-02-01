@@ -29,7 +29,7 @@ namespace DAL.DAO {
             int     password    = user.Password;
 
             command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO User(login, password, contact_id) " +
+            command.CommandText = "INSERT INTO \"User\"(login, password, contact_id) " +
                 "VALUES('" + user.Login + "', '" + user.Password + "', " + contact_id + ");";
 
             SqlDataReader reader = command.ExecuteReader();
@@ -37,7 +37,6 @@ namespace DAL.DAO {
             this.connection.Close();
 
         }
-
 
         public void Update(User user) {
             this.connection.Open();
@@ -57,9 +56,10 @@ namespace DAL.DAO {
         }
 
         public void Remove(long user_id) {
-            this.connection.Open();
 
             User user = FindOneById(user_id);
+
+            this.connection.Open();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "DELETE FROM " + TABLE_NAME + " " +
@@ -68,21 +68,44 @@ namespace DAL.DAO {
 
             SqlDataReader reader = command.ExecuteReader();
 
-            command = connection.CreateCommand();
+            //command = connection.CreateCommand();
 
-            command.CommandText = "DELETE FROM Contact " +
-                "WHERE id = " + user_id + ";";
-            reader = command.ExecuteReader();
+            //command.CommandText = "DELETE FROM Contact " +
+            //    "WHERE id = " + user_id + ";";
+            //reader = command.ExecuteReader();
 
             this.connection.Close();
         }
 
+        public List<User> FindAll() {
+            this.connection.Open();
+            List<User> user = new List<User>();
 
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM \"" + TABLE_NAME + "\";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()) {
+                long id = reader.GetInt64(0);
+                string login = reader.GetString(1);
+                int password = reader.GetInt32(2);
+                long contact_id = reader.GetInt64(3);
+
+                user.Add(new User(id, login, password, contact_id));
+            }
+
+            this.connection.Close();
+
+            return user;
+
+        }
 
         public User FindOneById(long? user_id) {
             User user = null;
 
             if (user_id != null) {
+
                 this.connection.Open();
 
                 SqlCommand command = connection.CreateCommand();

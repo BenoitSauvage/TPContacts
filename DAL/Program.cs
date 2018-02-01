@@ -10,12 +10,74 @@ namespace DAL
 
         static void Main(string[] args) {
 
-            TestContactQuerys();
+            //TestContactQuerys();
 
-            AddRandomContacts();
+            //AddRandomContacts();
+
+
+            Console.WriteLine("");
+            Console.WriteLine("LES CONTACTS");
+            Console.WriteLine("");
+            CheckCurentContacts();            
+
+            //AddRandomUsers();
+
+            Console.WriteLine("");
+            Console.WriteLine("LES UTILISATEURS");
+            Console.WriteLine("");
+            
+            CheckUsers();
+
 
         }
 
+
+        public static void AddRandomUsers() {
+            DAOUser dao = new DAOUser();
+
+            User alex = new User("Artur", "Excamlott");
+            Contact alex_C = new Contact("Alexandre", "Astier", "AAstier@kaamelott.con");
+
+            User percy = new User("Percy", "culdchouette");
+            Contact percy_C = new Contact("Perceval", "de Galle", "provencallegaulois@kaamelott.con");
+
+            User karadoc = new User("Karadoc", "saucissonfinesherbes");
+            Contact karadoc_C = new Contact("Karadoc", "de Vanne", "tartinerillette@kaamelott.con");
+
+            
+
+            dao.Create(alex, alex_C);
+            dao.Create(percy, percy_C);
+            dao.Create(karadoc, karadoc_C);
+
+
+
+
+        }
+
+        public static void CheckUsers() {
+
+            DAOUser daoUser = new DAOUser();
+            List<User> users= daoUser.FindAll();
+
+            DAOContact daoContact = new DAOContact();
+
+            foreach (User c in users) {
+                c.Print();
+                daoContact.FindOneById(c.Contact_Id).Print();
+            }
+
+
+        }
+
+        public static void CheckCurentContacts() {
+            DAOContact dao = new DAOContact();
+            List<Contact> contacts = dao.FindAll();
+
+            foreach (Contact c in contacts) {
+                c.Print();
+            }
+        }
 
         public static void AddRandomContacts() {
             DAOContact dao = new DAOContact();
