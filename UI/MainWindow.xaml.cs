@@ -33,25 +33,31 @@ namespace UI
             // Add columns
             var gridView = new GridView();
             this.Contacts_List.View = gridView;
+            this.Contacts_List.FontSize = 20;
+            var header_style = new Style();
 
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = FIRSTNAME,
+                Width = 150,
                 DisplayMemberBinding = new Binding(FIRSTNAME)
             });
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = LASTNAME,
+                Width = 150,
                 DisplayMemberBinding = new Binding(LASTNAME)
             });
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = EMAIL,
+                Width = 300,
                 DisplayMemberBinding = new Binding(EMAIL)
             });
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = PHONE,
+                Width = 180,
                 DisplayMemberBinding = new Binding(PHONE)
             });
 
@@ -83,6 +89,7 @@ namespace UI
                     text.TextAlignment = TextAlignment.Center;
                     text.Foreground = Brushes.Red;
                     text.FontWeight = FontWeights.Bold;
+                    text.FontSize = 20;
                     this.FormContactErrorStack.Children.Add(text);
                 }
             }

@@ -5,55 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="700">
+        Title="Contacts" Height="800" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="537*"/>
-            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="925*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="242*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="160*"/>
             <RowDefinition Height="159*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="264" Margin="154,96,0,0" VerticalAlignment="Top" Width="396" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort" Grid.ColumnSpan="2">
+        <ListView x:Name="Contacts_List" HorizontalAlignment="Left" Height="500" Margin="181,141,0,0" VerticalAlignment="Top" Width="800" Grid.RowSpan="2" SelectionChanged="Contacts_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort" Grid.ColumnSpan="3" FontWeight="Light" Background="{x:Null}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="BtnDisplayFormContact" Content="Nouveau" HorizontalAlignment="Left" Margin="502,53,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnAddContact_Click" RenderTransformOrigin="0.288,0.264" Grid.ColumnSpan="2"/>
-        <Button x:Name="BackToList" Content="Retour" HorizontalAlignment="Left" Margin="307,63,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BackToList_Click"/>
+        <Button x:Name="BtnDisplayFormContact" Content="Nouveau" HorizontalAlignment="Left" Margin="870,81,0,0" VerticalAlignment="Top" Width="111" Height="54" Click="BtnAddContact_Click" RenderTransformOrigin="0.288,0.264" Grid.ColumnSpan="3" FontSize="20" Background="{x:Null}" FontWeight="Light"/>
+        <Button x:Name="BackToList" Content="Retour" HorizontalAlignment="Left" Margin="514,217,0,0" VerticalAlignment="Top" Width="100" Height="40" Click="BackToList_Click" FontSize="20" Background="{x:Null}" FontWeight="Light"/>
 
-        <StackPanel x:Name="FormContactInputStack" Margin="315,140,14.25,171" Orientation="Vertical" Grid.RowSpan="2">
-            <TextBox x:Name="input_firstname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-            <TextBox x:Name="input_lastname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-            <TextBox x:Name="input_email" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-            <TextBox x:Name="input_phone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-            <TextBox x:Name="input_id" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel x:Name="FormContactTextStack" Margin="210,141,87,64" Orientation="Vertical" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Height="23" Width="95"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Height="23" Width="95"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Height="23" Width="95"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Height="23" Width="95"/>
-        </StackPanel>
-        <Button x:Name="BtnContactValidate" Content="Valider" HorizontalAlignment="Left" Margin="266,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnContactValidate_Click" Height="20"/>
-        <Button x:Name="BtnDeleteFormContact" Content="Supprimer" HorizontalAlignment="Left" Margin="346,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="BtnDeleteFormContact_Click" Height="20"/>
-        <StackPanel x:Name="FormContactErrorStack" HorizontalAlignment="Left" Height="81" Margin="96,121,0,0" Grid.Row="1" VerticalAlignment="Top" Width="497" Grid.ColumnSpan="2"/>
+        <Border x:Name="FormContactInputStack" Margin="493,291,132,343" Grid.RowSpan="2">
+            <Grid Margin="-15,-13,-17,-15">
+                <TextBox x:Name="input_id" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Visibility="Hidden"/>
+                <TextBox x:Name="input_firstname" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" FontSize="20" Margin="15,13,0,0" FontWeight="Light"/>
+                <TextBox x:Name="input_lastname" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" FontSize="20" Margin="15,48,0,0" FontWeight="Light"/>
+                <TextBox x:Name="input_email" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" FontSize="20" Margin="15,83,0,0" FontWeight="Light"/>
+                <TextBox x:Name="input_phone" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" FontSize="20" Margin="15,118,0,0" FontWeight="Light"/>
 
-        <Border x:Name="Search_Bar" Margin="116,39,45,119">
-            <Grid Margin="-9,0,0,0">
-                <TextBox x:Name="search_firstname" HorizontalAlignment="Right" Margin="0,21,290,0" TextWrapping="Wrap" Text="" Width="78" TextChanged="Search_TextChanged" Height="23" VerticalAlignment="Top"/>
-                <TextBox x:Name="search_lastname" HorizontalAlignment="Left" Margin="100,21,0,0" TextWrapping="Wrap" Text="" Width="82" TextChanged="Search_TextChanged" Height="23" VerticalAlignment="Top"/>
-                <TextBox x:Name="search_email" HorizontalAlignment="Left" Margin="186,21,0,0" TextWrapping="Wrap" Text="" Width="86" TextChanged="Search_TextChanged" Height="23" VerticalAlignment="Top"/>
-                <TextBox x:Name="search_phone" Height="23" Margin="276,21,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="Search_TextChanged" HorizontalAlignment="Left" Width="86"/>
+            </Grid>
+        </Border>
+        <Border x:Name="FormContactTextStack" Margin="360,291,447,343" Grid.RowSpan="2">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Height="30" Width="100" FontSize="20" TextAlignment="Right" FontWeight="Light"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Height="30" Width="100" Margin="0,35,0,0" FontSize="20" TextAlignment="Right" FontWeight="Light"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Height="30" Width="100" Margin="0,70,0,0" FontSize="20" TextAlignment="Right" FontWeight="Light"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Height="30" Width="100" Margin="0,105,0,0" FontSize="20" TextAlignment="Right" FontWeight="Light"/>
 
-                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="86" Margin="0,0,280,0"/>
-                <TextBlock HorizontalAlignment="Left" Margin="100,0,0,0" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Width="86"/>
-                <TextBlock HorizontalAlignment="Left" Margin="186,0,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="86"/>
-                <TextBlock HorizontalAlignment="Left" Margin="277,0,0,0" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Width="86"/>
+            </Grid>
+        </Border>
+
+        <Button x:Name="BtnContactValidate" Content="Valider" HorizontalAlignment="Left" Margin="441,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="BtnContactValidate_Click" Height="40" FontSize="20" Background="{x:Null}" FontWeight="Light"/>
+        <Button x:Name="BtnDeleteFormContact" Content="Supprimer" HorizontalAlignment="Left" Margin="566,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Click="BtnDeleteFormContact_Click" Height="40" FontSize="20" RenderTransformOrigin="1.06,0.375" Background="{x:Null}" FontWeight="Light"/>
+
+        <StackPanel x:Name="FormContactErrorStack" HorizontalAlignment="Left" Height="136" Margin="181,174,0,0" Grid.Row="1" VerticalAlignment="Top" Width="800" Grid.ColumnSpan="3"/>
+
+        <Border x:Name="Search_Bar" Margin="100,0,280,342">
+            <Grid Margin="71,84,-237,-99">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="79*"/>
+                    <ColumnDefinition Width="269*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="search_firstname" HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="" Width="125" TextChanged="Search_TextChanged" Height="30" VerticalAlignment="Top" FontSize="20" FontWeight="Light"/>
+                <TextBox x:Name="search_lastname" HorizontalAlignment="Left" Margin="140,21,0,0" TextWrapping="Wrap" Text="" Width="125" TextChanged="Search_TextChanged" Height="30" VerticalAlignment="Top" FontSize="20" Grid.ColumnSpan="2" FontWeight="Light"/>
+                <TextBox x:Name="search_email" HorizontalAlignment="Left" Margin="109,21,0,0" TextWrapping="Wrap" Text="" Width="280" TextChanged="Search_TextChanged" Height="30" VerticalAlignment="Top" Grid.Column="1" FontSize="20" FontWeight="Light"/>
+                <TextBox x:Name="search_phone" HorizontalAlignment="Left" Margin="394,21,0,0" TextWrapping="Wrap" Text="" Width="140" TextChanged="Search_TextChanged" Height="30" VerticalAlignment="Top" Grid.Column="1" FontSize="20" FontWeight="Light"/>
+
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="12,-6,0,0" Text="Firstname" VerticalAlignment="Top" Width="125"  FontSize="20" FontWeight="Light"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="140,-6,0,0" Text="Lastname" VerticalAlignment="Top" Width="125" FontSize="20" Grid.ColumnSpan="2" FontWeight="Light" />
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="109,-6,0,0" Text="Email" VerticalAlignment="Top" Width="280" FontSize="20" Grid.Column="1" FontWeight="Light"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="394,-6,0,0"  Text="Phone" VerticalAlignment="Top" Width="140" FontSize="20" Grid.Column="1" FontWeight="Light"/>
             </Grid>
         </Border>
 
