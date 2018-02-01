@@ -10,7 +10,7 @@ namespace DAL
 
         static void Main(string[] args) {
 
-            //TestContactQuerys();
+            TestContactQuerys();
 
             AddRandomContacts();
 

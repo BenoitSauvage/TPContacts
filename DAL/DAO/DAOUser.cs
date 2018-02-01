@@ -25,8 +25,6 @@ namespace DAL.DAO {
 
             long contact_id = (long)command.ExecuteScalar();
             
-
-
             string  login       = user.Login;
             int     password    = user.Password;
 
@@ -41,7 +39,22 @@ namespace DAL.DAO {
         }
 
 
+        public void Update(User user) {
+            this.connection.Open();
 
+            string login    = user.Login != null ? "'" + user.Login + "'" : "NULL";
+            string password = "'" + user.Password + "'";
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE " + TABLE_NAME + " SET " +
+            "login = '" + user.Login + "', " +
+            "password = '" + user.Password + "', " + 
+            "WHERE id = " + user.Id + ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            this.connection.Close();
+        }
 
         public void Remove(long user_id) {
             this.connection.Open();
@@ -96,9 +109,78 @@ namespace DAL.DAO {
             return user;
         }
 
+
+        public void AddContactRelation(long user_id, long contact_id) {
+            this.connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+                
+
+            command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO Contact_Book(user_id, contact_id) " +
+                "VALUES('" + user_id + "', '" + contact_id + ");";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            this.connection.Close();
+
+        }
+
+
+        public void DeleteContactRelation(long user_id, long contact_id) {
+            SqlCommand command = connection.CreateCommand();
+            command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM " + TABLE_BOOKING  +
+            " WHERE user_id = " + user_id + " AND contact_id = " + contact_id + ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            this.connection.Close();
+
+        }
+
+
+        //Renvoie un booleen qui indique si une tel connection exist deja ou non
+        public bool DetectExistingRelation(long user_id, long contact_id) {
+            bool retour = false;
+
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM " + TABLE_BOOKING + " WHERE user_id LIKE " + user_id + " AND contact_id LIKE " + contact_id;
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()) {
+                retour = true;
+            }
+
+            connection.Close();
+
+            return retour;
+        }
+
+        public List<Contact> GetAllConnectionForUser(long user_id) {
+            List<Contact> contacts = new List<Contact>();
+            List<long> contact_ids = new List<long>();
+            DAOContact cDAO = new DAOContact();
+
+            connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT contact_id FROM " + TABLE_BOOKING + " WHERE user_id = "+ user_id +";";
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()) {
+                contact_ids.Add(reader.GetInt64(0));
+            }
+
+            connection.Close();
+
+            return cDAO.FindByIds(contact_ids);
+        }
+
         public List<User> GetAllUsers() {
             this.connection.Open();
-            List<User> User = new List<User>();
+            List<User> users = new List<User>();
 
             SqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM " + TABLE_NAME + ";";
@@ -111,14 +193,12 @@ namespace DAL.DAO {
                 int password= reader.GetInt32(2);
                 long contact_id = reader.GetInt64(3);
 
-                User.Add(new User(id, login, password, contact_id));
+                users.Add(new User(id, login, password, contact_id));
             }
 
             this.connection.Close();
 
-            return User;
-
-
+            return users;
         }
 
     }

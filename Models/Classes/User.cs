@@ -9,16 +9,16 @@ namespace Models.Classes {
 
         public static long? current_user_id = null;
 
-        public long?    Id        { get; private set; }
-        public string   Login     { get; private set; }
-        public int      Password  { get; private set; }
+        public long? Id { get; private set; }
+        public string Login { get; private set; }
+        public int Password { get; private set; }
 
-        public long?    Contact_Id   { get; private set; }
-        public long[]   Contacts_Ids { get; private set; }
+        public long? Contact_Id { get; private set; }
+        public List<long> Contacts_Ids { get; private set; }
 
         public User(string login, string password) {
-            this.Login      = login;
-            this.Password   = Encrypt(password);
+            this.Login = login;
+            this.Password = Encrypt(password);
         }
 
         public User(long id, string login, int password, long contact_id) {
@@ -36,13 +36,29 @@ namespace Models.Classes {
             return Encrypt(password) == Password;
         }
 
-        public void Connect(string password) {
-            if (CheckPassword(password)) {
+        public void AddContact(long contact_id) {
+            Contacts_Ids.Add(contact_id);
+        }
+        
+
+
+        public byte Connect(string login, string password) {
+            //Code d'érreurs
+            // 0 = login && Password incorect
+            // 1 = password incorect
+            // 2 = login incorect
+            // 3 = Connection réussit
+
+            byte retour = 0;
+
+            if (login == Login)
+                retour += 1;
+            if (CheckPassword(password))
+                retour += 2;
+            if (retour == 3)
                 current_user_id = Id;
-            } else { 
-                // TO DO
-                // THROW EXCEPTIONS
-                }
+
+            return retour;
         }
 
         public void Disconnect() {
