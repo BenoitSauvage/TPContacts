@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DAO\ConnectData.cs" />
     <Compile Include="DAO\DAOContact.cs" />
+    <Compile Include="DAO\DAOUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -193,7 +193,6 @@ namespace DAL.DAO {
 
             SqlDataReader reader = command.ExecuteReader();
 
-
             while (reader.Read())
             {
                 long id = reader.GetInt64(0);
@@ -206,8 +205,6 @@ namespace DAL.DAO {
             }
 
             this.connection.Close();
-
-
             return contacts;
         }
 
@@ -222,7 +219,6 @@ namespace DAL.DAO {
 
             SqlDataReader reader = command.ExecuteReader();
 
-
             while (reader.Read())
             {
                 long id = reader.GetInt64(0);
@@ -235,12 +231,7 @@ namespace DAL.DAO {
             }
 
             this.connection.Close();
-
-
             return contacts;
         }
-
     }
 }
-
-
