@@ -45,7 +45,7 @@ namespace DAL.DAO {
             string password = "'" + user.Password + "'";
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE " + TABLE_NAME + " SET " +
+            command.CommandText = "UPDATE \"" + TABLE_NAME + "\" SET " +
             "login = '" + user.Login + "', " +
             "password = '" + user.Password + "', " + 
             "WHERE id = " + user.Id + ";";
@@ -62,7 +62,7 @@ namespace DAL.DAO {
             this.connection.Open();
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM " + TABLE_NAME + " " +
+            command.CommandText = "DELETE FROM \"" + TABLE_NAME + "\" " +
                 "WHERE id = " + user_id +
             ";";
 
@@ -109,7 +109,7 @@ namespace DAL.DAO {
                 this.connection.Open();
 
                 SqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT id, login, password, contact_id FROM " + TABLE_NAME + " WHERE id = " + user_id + ";";
+                command.CommandText = "SELECT id, login, password, contact_id FROM \"" + TABLE_NAME + "\" WHERE id = " + user_id + ";";
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -153,8 +153,8 @@ namespace DAL.DAO {
         public void DeleteContactRelation(long user_id, long contact_id) {
             SqlCommand command = connection.CreateCommand();
             command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM " + TABLE_BOOKING  +
-            " WHERE user_id = " + user_id + " AND contact_id = " + contact_id + ";";
+            command.CommandText = "DELETE FROM \"" + TABLE_BOOKING  +
+            "\" WHERE user_id = " + user_id + " AND contact_id = " + contact_id + ";";
 
             SqlDataReader reader = command.ExecuteReader();
 
@@ -169,7 +169,7 @@ namespace DAL.DAO {
 
             connection.Open();
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM " + TABLE_BOOKING + " WHERE user_id LIKE " + user_id + " AND contact_id LIKE " + contact_id;
+            command.CommandText = "SELECT * FROM \"" + TABLE_BOOKING + "\" WHERE user_id LIKE " + user_id + " AND contact_id LIKE " + contact_id;
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read()) {
@@ -189,7 +189,7 @@ namespace DAL.DAO {
             connection.Open();
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT contact_id FROM " + TABLE_BOOKING + " WHERE user_id = "+ user_id +";";
+            command.CommandText = "SELECT contact_id FROM \"" + TABLE_BOOKING + "\" WHERE user_id = " + user_id +";";
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read()) {
@@ -206,7 +206,7 @@ namespace DAL.DAO {
             List<User> users = new List<User>();
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM " + TABLE_NAME + ";";
+            command.CommandText = "SELECT * FROM \"" + TABLE_NAME + "\";";
 
             SqlDataReader reader = command.ExecuteReader();
 
