@@ -169,7 +169,7 @@ namespace DAL.DAO {
             this.connection.Open();
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM " + TABLE_NAME + " WHERE firstname LIKE '%" + name + "%' OR lastname LIKE '%" + name + "%';";
+            command.CommandText = "SELECT * FROM " + TABLE_NAME + " WHERE firstname LIKE '%" + name + "%';";
 
             SqlDataReader reader = command.ExecuteReader();
 
@@ -186,6 +186,32 @@ namespace DAL.DAO {
 
             this.connection.Close();
 
+            return contacts;
+        }
+
+        public List<Contact> FindByLastname(string name)
+        {
+            List<Contact> contacts = new List<Contact>();
+            this.connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM " + TABLE_NAME + " WHERE lastname LIKE '%" + name + "%';";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+                long id = reader.GetInt64(0);
+                string firstname = reader.GetString(1);
+                string lastname = reader.GetString(2);
+                string email = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string phone = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contacts.Add(new Contact(id, firstname, lastname, email, phone));
+            }
+
+            this.connection.Close();
 
             return contacts;
         }
@@ -210,11 +236,12 @@ namespace DAL.DAO {
             }
 
             this.connection.Close();
+
             return contacts;
         }
 
-
-        public List<Contact> FindByPhone(string phone) {
+        public List<Contact> FindByPhone(string phone)
+        {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -234,6 +261,48 @@ namespace DAL.DAO {
             }
 
             this.connection.Close();
+
+            return contacts;
+        }
+
+        public List<Contact> FindByMultiCriteria(string firstname, string lastname, string email, string phone)
+        {
+            List<Contact> contacts = new List<Contact>();
+            this.connection.Open();
+
+            string SQLQuery= "SELECT * FROM " + TABLE_NAME + " WHERE 1=1";
+
+            if (firstname != "")
+                SQLQuery += " AND firstname LIKE '%" + firstname + "%'";
+
+            if (lastname != "")
+                SQLQuery += " AND lastname LIKE '%" + lastname + "%'";
+
+            if (email != "")
+                SQLQuery += " AND email LIKE '%" + email + "%'";
+
+            if (phone != "")
+                SQLQuery += " AND phone LIKE '%" + phone + "%'";
+
+            SQLQuery += ";";
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = SQLQuery;
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                long id = reader.GetInt64(0);
+                string first = reader.GetString(1);
+                string last = reader.GetString(2);
+                string mail = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string cel = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contacts.Add(new Contact(id, first, last, mail, cel));
+            }
+
+            this.connection.Close();
+
             return contacts;
         }
     }

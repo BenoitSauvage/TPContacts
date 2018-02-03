@@ -109,6 +109,8 @@ namespace DAL
         public static void TestContactQuerys()
         {
             DAOContact dao = new DAOContact();
+
+
             List<Contact> contacts = new List<Contact>();
             List<Contact> dbContacts = new List<Contact>();
 
@@ -196,3 +198,6 @@ namespace DAL
         }
     }
 }
+
+            Console.WriteLine();
+            List<Contact> contact4 = dao.FindByName("Bob");
