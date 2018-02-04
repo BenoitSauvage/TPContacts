@@ -45,9 +45,6 @@ namespace Models.Classes {
             Console.WriteLine("Mon Login : {0}", this.Login);
             Console.WriteLine("Id : {0}", this.Id);
             Console.WriteLine("encrypted password : {0}", this.Password);
-
-
-
         }
 
         public byte Connect(string login, string password) {
@@ -72,8 +69,5 @@ namespace Models.Classes {
         public void Disconnect() {
             current_user_id = null;
         }
-
-
-
     }
 }

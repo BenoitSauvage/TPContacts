@@ -198,6 +198,3 @@ namespace DAL
         }
     }
 }
-
-            Console.WriteLine();
-            List<Contact> contact4 = dao.FindByName("Bob");
