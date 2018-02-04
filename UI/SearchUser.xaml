@@ -5,20 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="SearchUser" Height="400" Width="400">
+        Title="SearchUser" Height="500" Width="500">
     <Grid>
 
 
         <TextBox Name="txtBox_saisie" HorizontalAlignment="Left" Height="33" Margin="34,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" TextChanged="txtBox_saisie_TextChanged"/>
         <Button Content="Chercher" HorizontalAlignment="Left" Height="33" Margin="237,38,0,0" VerticalAlignment="Top" Width="129" Click="Button_Click"/>
-        <ListView Name="lstView_resultats" HorizontalAlignment="Left" Height="205" Margin="34,89,0,0" VerticalAlignment="Top" Width="330">
+        
+        
+        <ListView x:Name="User_Search_List" HorizontalAlignment="Left" Height="300" Margin="22,100,0,0" VerticalAlignment="Top" Width="450" Grid.RowSpan="2" SelectionChanged="User_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort" Grid.ColumnSpan="3" FontWeight="Light" Background="{x:Null}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Login" Width="100"/>
+                    <GridViewColumn Header="FirstName" Width="100"/>
+                    <GridViewColumn Header="LastName" Width="100"/>
+                    <GridViewColumn Header="Email" Width="100"/>
+                    
+                    <GridViewColumn Header="Add" Width="50"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="QUITTER" HorizontalAlignment="Left" Height="32" Margin="34,320,0,0" VerticalAlignment="Top" Width="79" Click="Button_Click_1"/>
+        <Button Content="QUITTER" HorizontalAlignment="Left" Height="32" Margin="34,420,0,0" VerticalAlignment="Top" Width="79" Click="Button_Click_1"/>
 
 
     </Grid>
