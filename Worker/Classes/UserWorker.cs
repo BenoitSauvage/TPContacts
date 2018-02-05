@@ -13,6 +13,16 @@ namespace Worker.Classes {
             userManager = new DAL.DAO.DAOUser();
         }
 
+        public long GetCurrentUser() {
+            return (long)Models.Classes.User.current_user_id;
+        }
+
+        public string GetLoginById(long id) {
+            Models.Classes.User user = userManager.FindOneById(id);
+
+            return user.Login;
+        }
+
         public byte CheckConnect(string login, string password) {
             byte res = 0;
             bool stopLoop = false;
@@ -23,7 +33,7 @@ namespace Worker.Classes {
                 switch (users[i].Connect(login, password)) {
                     case 3:
                         stopLoop = true ;
-                        res = 4;
+                        res = 2;
                         break;
                     case 1:
                         stopLoop = true;

@@ -17,8 +17,22 @@ namespace UI {
     /// Interaction logic for CreateUser.xaml
     /// </summary>
     public partial class CreateUser : Window {
+
+
         public CreateUser() {
             InitializeComponent();
+
         }
+
+        private void Button_Create_User(object sender, RoutedEventArgs e) {
+
+
+        }
+
+        private void Button_Quit_Create_User(object sender, RoutedEventArgs e) {
+
+
+        }
+
     }
 }

@@ -34,7 +34,20 @@ namespace UI {
 
         private void Button_Signin(object sender, RoutedEventArgs e) {
 
-            userWorker.CheckConnect(txtBox_login.Text, txtBox_password.Text);
+            switch(userWorker.CheckConnect(txtBox_login.Text, txtBox_password.Text)){
+                case 2:
+                    SearchUser main = new SearchUser(userWorker.GetCurrentUser());
+                    main.Show();
+                    this.Close();
+                    break;
+                case 1:
+                    MessageBox.Show("Error: Incorect Password");
+                    break;
+                case 0:
+                    MessageBox.Show("Error: Unknow loggin");
+                    break;
+
+            }
 
 
         }

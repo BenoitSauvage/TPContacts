@@ -17,8 +17,29 @@ namespace UI {
     /// Interaction logic for SearchUser.xaml
     /// </summary>
     public partial class SearchUser : Window {
-        public SearchUser() {
+        long id;
+        Worker.Classes.UserWorker user;
+
+
+        public SearchUser(long id_user) {
             InitializeComponent();
+            id = id_user;
+            user = new Worker.Classes.UserWorker();
+            txt_userName.Text = "Bonjour " + user.GetLoginById(id);
+        }
+
+        private void Button_Quit(object sender, RoutedEventArgs e) {
+
+            this.Close();
+
+        }
+
+        private void Button_Search(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void Button_Nouveau(object sender, RoutedEventArgs e) {
+
         }
     }
 }

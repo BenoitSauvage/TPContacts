@@ -9,11 +9,12 @@
     <Grid>
 
 
-        <TextBox Name="txtBox_saisie" HorizontalAlignment="Left" Height="33" Margin="34,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" TextChanged="txtBox_saisie_TextChanged"/>
-        <Button Content="Chercher" HorizontalAlignment="Left" Height="33" Margin="237,38,0,0" VerticalAlignment="Top" Width="129" Click="Button_Click"/>
-        
-        
-        <ListView x:Name="User_Search_List" HorizontalAlignment="Left" Height="300" Margin="22,100,0,0" VerticalAlignment="Top" Width="450" Grid.RowSpan="2" SelectionChanged="User_List_SelectionChanged" GridViewColumnHeader.Click="GridViewSort" Grid.ColumnSpan="3" FontWeight="Light" Background="{x:Null}">
+        <TextBox Name="txtBox_saisie" HorizontalAlignment="Left" Height="33" Margin="34,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Button Content="Chercher" HorizontalAlignment="Left" Height="33" Margin="237,40,0,0" VerticalAlignment="Top" Width="129" Click="Button_Search"/>
+
+        <TextBlock Name="txt_userName" HorizontalAlignment="Left" Height="33" Margin="34,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+
+        <ListView x:Name="User_Search_List" HorizontalAlignment="Left" Height="300" Margin="22,100,0,0" VerticalAlignment="Top" Width="450" Grid.RowSpan="2" Grid.ColumnSpan="3" FontWeight="Light" Background="{x:Null}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Login" Width="100"/>
@@ -25,7 +26,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="QUITTER" HorizontalAlignment="Left" Height="32" Margin="34,420,0,0" VerticalAlignment="Top" Width="79" Click="Button_Click_1"/>
+
+        <Button Content="NouveauContact" HorizontalAlignment="Left" Height="32" Margin="34,420,0,0" VerticalAlignment="Top" Width="100" Click="Button_Nouveau"/>
+
+        <Button Content="QUITTER" HorizontalAlignment="Left" Height="32" Margin="170,420,0,0" VerticalAlignment="Top" Width="79" Click="Button_Quit"/>
 
 
     </Grid>
