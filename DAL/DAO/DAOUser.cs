@@ -4,7 +4,7 @@ using Models.Classes;
 using System.Data.SqlClient;
 
 namespace DAL.DAO {
-    class DAOUser {
+    public class DAOUser {
         private SqlConnection connection;
         const string TABLE_NAME = "User";
         const string TABLE_BOOKING = "Contact_Book";

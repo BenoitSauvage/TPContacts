@@ -60,8 +60,8 @@
     <Compile Include="SearchUser.xaml.cs">
       <DependentUpon>SearchUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="signin.xaml.cs">
-      <DependentUpon>signin.xaml</DependentUpon>
+    <Compile Include="Sign-in.xaml.cs">
+      <DependentUpon>Sign-in.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateUser.xaml">
       <SubType>Designer</SubType>
@@ -83,7 +83,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="signin.xaml">
+    <Page Include="Sign-in.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
