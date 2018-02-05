@@ -1,0 +1,36 @@
+﻿<Window x:Class="UI.SearchUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="SearchUser" Height="500" Width="500">
+    <Grid>
+
+
+        <TextBox Name="txtBox_saisie" HorizontalAlignment="Left" Height="33" Margin="34,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Button Content="Chercher" HorizontalAlignment="Left" Height="33" Margin="237,40,0,0" VerticalAlignment="Top" Width="129" Click="Button_Search"/>
+
+        <TextBlock Name="txt_userName" HorizontalAlignment="Left" Height="33" Margin="34,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+
+        <ListView x:Name="User_Search_List" HorizontalAlignment="Left" Height="300" Margin="22,100,0,0" VerticalAlignment="Top" Width="450" Grid.RowSpan="2" Grid.ColumnSpan="3" FontWeight="Light" Background="{x:Null}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Login" Width="100"/>
+                    <GridViewColumn Header="FirstName" Width="100"/>
+                    <GridViewColumn Header="LastName" Width="100"/>
+                    <GridViewColumn Header="Email" Width="100"/>
+                    
+                    <GridViewColumn Header="Add" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="NouveauContact" HorizontalAlignment="Left" Height="32" Margin="34,420,0,0" VerticalAlignment="Top" Width="100" Click="Button_Nouveau"/>
+
+        <Button Content="QUITTER" HorizontalAlignment="Left" Height="32" Margin="170,420,0,0" VerticalAlignment="Top" Width="79" Click="Button_Quit"/>
+
+
+    </Grid>
+</Window>

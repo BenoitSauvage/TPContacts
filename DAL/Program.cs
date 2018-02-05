@@ -7,7 +7,106 @@ namespace DAL
 {
     class Program
     {
-        static void Main(string[] args)
+
+        static void Main(string[] args) {
+
+            //TestContactQuerys();
+
+            //AddRandomContacts();
+
+
+            Console.WriteLine("");
+            Console.WriteLine("LES CONTACTS");
+            Console.WriteLine("");
+            CheckCurentContacts();            
+
+            //AddRandomUsers();
+
+            Console.WriteLine("");
+            Console.WriteLine("LES UTILISATEURS");
+            Console.WriteLine("");
+            
+            CheckUsers();
+
+
+        }
+
+
+        public static void AddRandomUsers() {
+            DAOUser dao = new DAOUser();
+
+            User alex = new User("Artur", "Excamlott");
+            Contact alex_C = new Contact("Alexandre", "Astier", "AAstier@kaamelott.con");
+
+            User percy = new User("Percy", "culdchouette");
+            Contact percy_C = new Contact("Perceval", "de Galle", "provencallegaulois@kaamelott.con");
+
+            User karadoc = new User("Karadoc", "saucissonfinesherbes");
+            Contact karadoc_C = new Contact("Karadoc", "de Vanne", "tartinerillette@kaamelott.con");
+
+            
+
+            dao.Create(alex, alex_C);
+            dao.Create(percy, percy_C);
+            dao.Create(karadoc, karadoc_C);
+
+
+
+
+        }
+
+        public static void CheckUsers() {
+
+            DAOUser daoUser = new DAOUser();
+            List<User> users= daoUser.FindAll();
+
+            DAOContact daoContact = new DAOContact();
+
+            foreach (User c in users) {
+                c.Print();
+                daoContact.FindOneById(c.Contact_Id).Print();
+            }
+
+
+        }
+
+        public static void CheckCurentContacts() {
+            DAOContact dao = new DAOContact();
+            List<Contact> contacts = dao.FindAll();
+
+            foreach (Contact c in contacts) {
+                c.Print();
+            }
+        }
+
+        public static void AddRandomContacts() {
+            DAOContact dao = new DAOContact();
+            List<Contact> contacts = new List<Contact>();
+            List<Contact> dbContacts = new List<Contact>();
+
+            contacts.Add(new Contact("Benoit", "Sauvage", "benoit.sauvage@example.com", "+1 (514) 111-2222"));
+            contacts.Add(new Contact("Bob", "Durand", null, "+1 (514) 111-3333"));
+            contacts.Add(new Contact("James", "Bob", "JamyBob@exemp.com", "+1 (254) 220-2659"));
+            contacts.Add(new Contact("Pierre", "Martin", "pierre.martin@example.com"));
+
+
+            // CREATE
+            foreach (Contact contact in contacts)
+                dao.Create(contact);
+
+            // FIND ALL
+            foreach (Contact contact in dao.FindAll())
+                dbContacts.Add(contact);
+
+            // PRINT
+            Console.WriteLine("=== ACTUAL DB ===");
+            Console.WriteLine();
+            foreach (Contact contact in dbContacts)
+                contact.Print();
+
+        }
+
+        public static void TestContactQuerys()
         {
             DAOContact dao = new DAOContact();
 
@@ -70,7 +169,7 @@ namespace DAL
             //SEARCH BY NAME
             Console.WriteLine("=== TEST SEARCH BY NAME (\"Bob\") ===");
             Console.WriteLine();
-            List<Contact> contact4 = dao.FindByFirstname("Bob");
+            List<Contact> contact4 = dao.FindByName("Bob");
 
             foreach (Contact contact in contact4)
                 contact.Print();

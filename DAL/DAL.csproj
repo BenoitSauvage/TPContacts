@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DAO\ConnectData.cs" />
     <Compile Include="DAO\DAOContact.cs" />
+    <Compile Include="DAO\DAOUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\create_table_contact.sql" />
+    <Content Include="scripts\create_table_user_and_contact_user.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

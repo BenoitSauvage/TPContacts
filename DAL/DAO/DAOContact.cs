@@ -94,8 +94,7 @@ namespace DAL.DAO {
                 }
 
                 this.connection.Close();
-            }
-            else {
+            } else {
                 Console.WriteLine(" ERROR  : CONTACT-ID IS NULL ");
                 //TO DO THROW EXCEPTION
             }
@@ -104,29 +103,39 @@ namespace DAL.DAO {
             return contact;
         }
 
-        public Contact FindById(long[] contact_id) {
-            Contact contact = null;
+        public List<Contact> FindByIds(List<long> contact_id) {
+            List<Contact> contact = new List<Contact>();
 
-            foreach (long id in contact_id) {
-                this.connection.Open();
 
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT id, firstname, lastname, email, phone FROM " + TABLE_NAME + " WHERE id = " + id + ";";
+            SqlCommand command = connection.CreateCommand();
+            string commandText = "SELECT id, firstname, lastname, email, phone FROM " + TABLE_NAME + " WHERE id = ";
 
-                SqlDataReader reader = command.ExecuteReader();
+            for (int i = 0; i< contact_id.Count; i++) {
 
-                while (reader.Read()) {
-                    string firstname = reader.GetString(1);
-                    string lastname = reader.GetString(2);
-                    string email = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
-                    string phone = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
-
-                    contact = new Contact(id, firstname, lastname, email, phone);
-                }
-
-                this.connection.Close();
+                if (i != contact_id.Count - 1)
+                    commandText += contact_id[i] + " OR ";
+                else
+                    commandText += contact_id[i] + ";";
 
             }
+
+            this.connection.Open();
+            command.CommandText = commandText;
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read()) {
+                long id = reader.GetInt64(0);
+                string firstname = reader.GetString(1);
+                string lastname = reader.GetString(2);
+                string email = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string phone = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contact.Add(new Contact(id, firstname, lastname, email, phone));
+            }
+
+            this.connection.Close();
+
+
 
             return contact;
         }
@@ -155,8 +164,7 @@ namespace DAL.DAO {
             return contacts;
         }
 
-        public List<Contact> FindByFirstname(string name)
-        {
+        public List<Contact> FindByName(string name) {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -166,8 +174,7 @@ namespace DAL.DAO {
             SqlDataReader reader = command.ExecuteReader();
 
 
-            while (reader.Read())
-            {
+            while (reader.Read()) {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -209,8 +216,7 @@ namespace DAL.DAO {
             return contacts;
         }
 
-        public List<Contact> FindByEmail(string email)
-        {
+        public List<Contact> FindByEmail(string email) {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
@@ -219,9 +225,7 @@ namespace DAL.DAO {
 
             SqlDataReader reader = command.ExecuteReader();
 
-
-            while (reader.Read())
-            {
+            while (reader.Read()) {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -246,9 +250,7 @@ namespace DAL.DAO {
 
             SqlDataReader reader = command.ExecuteReader();
 
-
-            while (reader.Read())
-            {
+            while (reader.Read()) {
                 long id = reader.GetInt64(0);
                 string firstname = reader.GetString(1);
                 string lastname = reader.GetString(2);
@@ -303,8 +305,5 @@ namespace DAL.DAO {
 
             return contacts;
         }
-
     }
 }
-
-
