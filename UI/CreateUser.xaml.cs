@@ -11,17 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Models.Classes;
 
 namespace UI {
     /// <summary>
     /// Interaction logic for CreateUser.xaml
     /// </summary>
     public partial class CreateUser : Window {
-
+        DAL.DAO.DAOUser userMannager;
 
         public CreateUser() {
             InitializeComponent();
-
+            userMannager = new DAL.DAO.DAOUser();
         }
 
         private void Button_Create_User(object sender, RoutedEventArgs e) {
