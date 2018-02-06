@@ -36,7 +36,8 @@ namespace UI {
 
             switch(userWorker.CheckConnect(txtBox_login.Text, txtBox_password.Text)){
                 case 2:
-                    SearchUser main = new SearchUser(userWorker.GetCurrentUser());
+                    // SearchUser main = new SearchUser(userWorker.GetCurrentUser());
+                    MainWindow main = new MainWindow(userWorker.GetCurrentUser());
                     main.Show();
                     this.Close();
                     break;

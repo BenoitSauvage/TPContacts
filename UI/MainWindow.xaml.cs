@@ -22,11 +22,13 @@ namespace UI
         const string PHONE = "Phone";
 
         DAOContact daoContact;
+        long currentUser;
 
-        public MainWindow()
+        public MainWindow(long currentUser)
         {
             InitializeComponent();
             this.daoContact = new DAOContact();
+            this.currentUser = currentUser;
 
             this.HideForm();
 
@@ -97,7 +99,7 @@ namespace UI
             {
                 if (this.input_id.Text == "")
                 {
-                    ContactWorker.AddContact(contact);
+                    ContactWorker.AddContact(contact, this.currentUser);
                 }
                 else
                 {
@@ -172,7 +174,7 @@ namespace UI
                 { 3, this.search_phone.Text }
             };
 
-            foreach (Contact contact in ContactWorker.Search(search))
+            foreach (Contact contact in ContactWorker.Search(search, this.currentUser))
                 this.Contacts_List.Items.Add(contact);
         }
 
@@ -225,7 +227,7 @@ namespace UI
             this.Contacts_List.Items.Clear();
 
             // Populate list
-            foreach (Contact contact in ContactWorker.GetAll())
+            foreach (Contact contact in ContactWorker.GetAllForUser(this.currentUser))
                 this.Contacts_List.Items.Add(contact);
         }
 

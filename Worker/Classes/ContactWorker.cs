@@ -26,6 +26,12 @@ namespace Worker.Classes
             return contacts;
         }
 
+        public static List<Contact> GetAllForUser(long currentUserId)
+        {
+            contacts = new DAOContact().FindAllForUser(currentUserId);
+            return contacts;
+        }
+
         public static List<string> ValidateContact(Dictionary<string, string> contact)
         {
             List<string> errors = new List<string>();
@@ -58,7 +64,7 @@ namespace Worker.Classes
             return errors;
         }
 
-        public static void AddContact(Dictionary<string, string> c)
+        public static void AddContact(Dictionary<string, string> c, long current_user)
         {
             DAOContact dao = new DAOContact();
 
@@ -72,7 +78,7 @@ namespace Worker.Classes
 
             Contact contact = new Contact(firstname, lastname, email, phone);
 
-            dao.Create(contact);
+            dao.Create(contact, current_user);
         }
 
         public static void UpdateContact(Dictionary<string, string> c)
@@ -122,9 +128,9 @@ namespace Worker.Classes
             return contacts;
         }
 
-        public static List<Contact> Search(Dictionary<int, string> search)
+        public static List<Contact> Search(Dictionary<int, string> search, long user_id)
         {
-            DAOContact dao = new DAOContact();
+            DAOContact dao = new DAOContact(user_id);
 
             search.TryGetValue(INDEX_FIRSTNAME, out string firstname);
             search.TryGetValue(INDEX_LASTNAME, out string lastname);

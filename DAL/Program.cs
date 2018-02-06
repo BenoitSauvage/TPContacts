@@ -12,21 +12,21 @@ namespace DAL
 
             //TestContactQuerys();
 
-            //AddRandomContacts();
+            // AddRandomContacts();
 
 
             Console.WriteLine("");
             Console.WriteLine("LES CONTACTS");
             Console.WriteLine("");
-            CheckCurentContacts();            
+            // CheckCurentContacts();            
 
-            //AddRandomUsers();
+            AddRandomUsers();
 
             Console.WriteLine("");
             Console.WriteLine("LES UTILISATEURS");
             Console.WriteLine("");
             
-            CheckUsers();
+            // CheckUsers();
 
 
         }
@@ -44,11 +44,15 @@ namespace DAL
             User karadoc = new User("Karadoc", "saucissonfinesherbes");
             Contact karadoc_C = new Contact("Karadoc", "de Vanne", "tartinerillette@kaamelott.con");
 
-            
+            User admin = new User("Admin", "admin");
+            Contact admin_c = new Contact("Admin", "Admin", "admin@example.con");
+
+
 
             dao.Create(alex, alex_C);
             dao.Create(percy, percy_C);
             dao.Create(karadoc, karadoc_C);
+            dao.Create(admin, admin_c);
 
 
 
@@ -92,7 +96,7 @@ namespace DAL
 
             // CREATE
             foreach (Contact contact in contacts)
-                dao.Create(contact);
+                dao.Create(contact, 1);
 
             // FIND ALL
             foreach (Contact contact in dao.FindAll())
@@ -127,7 +131,7 @@ namespace DAL
 
             // CREATE
             foreach (Contact contact in contacts)
-                dao.Create(contact);
+                dao.Create(contact, 1);
 
             // FIND ALL
             foreach (Contact contact in dao.FindAll())

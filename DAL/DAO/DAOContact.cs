@@ -7,21 +7,31 @@ namespace DAL.DAO {
     public class DAOContact {
         private SqlConnection connection;
         const string TABLE_NAME = "Contact";
+        long currentUser = 0;
 
-        public DAOContact() {
+        public DAOContact()
+        {
             this.connection = new SqlConnection(connectionString: ConnectData.connectionString);
         }
 
-        public void Create(Contact contact) {
+        public DAOContact(long currentUser) {
+            this.currentUser = currentUser;
+            this.connection = new SqlConnection(connectionString: ConnectData.connectionString);
+        }
+
+        public void Create(Contact contact, long current_user) {
             this.connection.Open();
 
             string email = contact.Email != null ? "'" + contact.Email + "'" : "NULL";
             string phone = contact.Phone != null ? "'" + contact.Phone + "'" : "NULL";
 
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO Contact(firstname, lastname, email, phone) " +
+            command.CommandText = "INSERT INTO Contact(firstname, lastname, email, phone) OUTPUT Inserted.id " +
                 "VALUES('" + contact.Firstname + "', '" + contact.Lastname + "', " + email + ", " + phone + ");";
 
+            int new_contact = int.Parse(command.ExecuteScalar().ToString());
+
+            command.CommandText = "INSERT INTO Contact_Book VALUES(" + current_user + ", " + new_contact + ");";
             SqlDataReader reader = command.ExecuteReader();
 
             this.connection.Close();
@@ -164,6 +174,33 @@ namespace DAL.DAO {
             return contacts;
         }
 
+        public List<Contact> FindAllForUser(long user_id)
+        {
+            this.connection.Open();
+            List<Contact> contacts = new List<Contact>();
+
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM " + TABLE_NAME + " c JOIN Contact_Book cb ON c.id = cb.contact_id " + 
+                "WHERE cb.user_id = " + user_id + ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                long id = reader.GetInt64(0);
+                string firstname = reader.GetString(1);
+                string lastname = reader.GetString(2);
+                string email = !reader.IsDBNull(3) ? reader.GetString(3) : "NULL";
+                string phone = !reader.IsDBNull(4) ? reader.GetString(4) : "NULL";
+
+                contacts.Add(new Contact(id, firstname, lastname, email, phone));
+            }
+
+            this.connection.Close();
+
+            return contacts;
+        }
+
         public List<Contact> FindByName(string name) {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
@@ -270,7 +307,8 @@ namespace DAL.DAO {
             List<Contact> contacts = new List<Contact>();
             this.connection.Open();
 
-            string SQLQuery= "SELECT * FROM " + TABLE_NAME + " WHERE 1=1";
+            string SQLQuery= "SELECT * FROM " + TABLE_NAME + " c JOIN Contact_Book cb ON c.id = cb.contact_id " +
+                "WHERE cb.user_id = " + this.currentUser + " AND 1=1";
 
             if (firstname != "")
                 SQLQuery += " AND firstname LIKE '%" + firstname + "%'";

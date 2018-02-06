@@ -55,8 +55,8 @@ namespace Worker.Classes {
 
             List<User> users = userManager.FindAll();
 
-            for (int i = 0; !stopLoop && i < users.Count; i++) {
-                switch (users[i].Connect(login, password)) {
+            foreach(User user in users) {
+                switch (user.Connect(login, password)) {
                     case 3:
                         stopLoop = true ;
                         res = 2;
