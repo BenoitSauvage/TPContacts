@@ -12,7 +12,6 @@ namespace DAL.DAO
         public static string connectionString = @"Data Source = BENOIT\SQLEXPRESS; Initial Catalog = tpcontact; Integrated Security = True; Connect Timeout = 5;";
     }
 }
-
 ’’’
 
 3 - Modifier la chaine de connection pour correspondre à votre besoin
