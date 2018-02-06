@@ -51,23 +51,18 @@ namespace Worker.Classes {
 
         public byte CheckConnect(string login, string password) {
             byte res = 0;
-            bool stopLoop = false;
 
             List<User> users = userManager.FindAll();
 
             foreach(User user in users) {
                 switch (user.Connect(login, password)) {
                     case 3:
-                        stopLoop = true ;
                         res = 2;
                         break;
                     case 1:
-                        stopLoop = true;
                         res = 1;
                         break;
-
                 }
-
             }    
 
             return res;
