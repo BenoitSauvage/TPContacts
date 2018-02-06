@@ -14,14 +14,40 @@ namespace Worker.Classes {
         }
 
         public long GetCurrentUser() {
-            return (long)Models.Classes.User.current_user_id;
+            return (long)User.current_user_id;
         }
 
         public string GetLoginById(long id) {
-            Models.Classes.User user = userManager.FindOneById(id);
+            User user = userManager.FindOneById(id);
 
             return user.Login;
         }
+
+        public bool CheckExistLogin(string login) {
+            bool res = false;
+
+            List<User> users = userManager.FindAll();
+
+            for (int i=0; i<users.Count && !res; i++) {
+                if(users[i].Login == login) {
+                    res = true;
+                }
+
+            }
+
+
+            return res;
+        }
+
+        public void CreateUser(string login, string password, string firstname, string lastname,string email, string phone) {
+
+            User user = new User(login, password);
+            Contact contact = new Contact(firstname, lastname, email, phone);
+
+            userManager.Create(user, contact);
+
+        }
+
 
         public byte CheckConnect(string login, string password) {
             byte res = 0;
