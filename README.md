@@ -2,7 +2,7 @@
 
 1 - Le script pour créer la base de données est situé dans "DAL/scripts/create_database.sql" 2 - Pour fonctionner, créer un fichier "DAL/DAO/ConnectData.cs" avec le code suivant :
 
-```
+```csharp
 using System;
 
 namespace DAL.DAO
