@@ -60,11 +60,18 @@ namespace DAL.DAO {
             this.connection.Open();
 
             SqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Contact_Book " +
+                "WHERE contact_id = " + contact.Id +
+            ";";
+
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Close();
+
             command.CommandText = "DELETE FROM " + TABLE_NAME + " " +
                 "WHERE id = " + contact.Id +
             ";";
 
-            SqlDataReader reader = command.ExecuteReader();
+            reader = command.ExecuteReader();
 
             this.connection.Close();
         }
